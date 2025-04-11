@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surprise for Syifa</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f4e1f7;
+      font-family: 'Comic Sans MS', cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .gift-box {
+      width: 150px;
+      height: 150px;
+      background: #9c27b0;
+      position: relative;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .gift-box::before {
+      content: '';
+      width: 100%;
+      height: 20px;
+      background: #ce93d8;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    .gift-box::after {
+      content: '';
+      width: 20px;
+      height: 100%;
+      background: #ce93d8;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+
+    .text {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #6a1b9a;
+    }
+
+    .message {
+      display: none;
+      font-size: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 20px;
+      animation: fadeIn 1.2s ease-in-out forwards;
+    }
+
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="gift-box" onclick="openGift()"></div>
+  <div class="text">Klik kado ini, Syifa!</div>
+  <div id="message" class="message">
+    SYIFAAAAAAA HBDDD YAAAAA!<br/>
+    Semoga makin keren, makin lucu, dan makin out of the box.<br/>
+    Jangan lupa, pausnya kasih ke Faras ya!
+  </div>
+
+  <canvas class="confetti" id="confetti-canvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function openGift() {
+      document.querySelector('.gift-box').style.display = 'none';
+      document.querySelector('.text').style.display = 'none';
+      document.getElementById('message').style.display = 'block';
+      confetti();
+    }
+
+    function confetti() {
+      var end = Date.now() + 1 * 1000;
+      var colors = ['#bb0000', '#ffffff', '#d500f9'];
+
+      (function frame() {
+        confettiLib({
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confettiLib({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+
+    const confettiLib = window.confetti;
+  </script>
+</body>
+</html>
